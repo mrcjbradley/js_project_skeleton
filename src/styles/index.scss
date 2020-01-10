@@ -15,6 +15,8 @@ body {
   color: $main-color;
   height: 97vh;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
 }
 
 .center {
@@ -29,7 +31,13 @@ body {
   height: 50vh;
   width: 50vw;
   border-radius: 15px;
+  margin-top: 15px;
   @include basic-box-shadow($accent-color);
+}
+
+.image-card {
+  background-image: url("../images/yoda-stitch.jpg");
+  background-position: center;
 }
 
 // TYPOGRAPHY

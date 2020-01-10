@@ -1,4 +1,5 @@
 import "./styles/index.scss";
+// import yodaStitch from "./images/yoda-stitch.jpg";
 const testObj = {
   key1: "hi",
   key2: {
@@ -13,4 +14,7 @@ window.addEventListener("DOMContentLoaded", () => {
   card.classList.add("card", "center");
   card.innerHTML = `<h2>${greeting} World!</h2>`;
   document.body.append(card);
+  const imgCard = document.createElement("div");
+  imgCard.classList.add("card", "center", "image-card");
+  document.body.appendChild(imgCard);
 });
