@@ -16,7 +16,9 @@
   },
   "author": "mrcjbradley",
   "license": "ISC",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
     "autoprefixer": "^9.6.4",
@@ -35,8 +37,5 @@
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2",
     "webpack-merge": "^4.2.2"
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.7.5"
   }
 }
