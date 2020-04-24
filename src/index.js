@@ -1,10 +1,10 @@
 import "./styles/index.scss";
-// import yodaStitch from "./images/yoda-stitch.jpg";
+
 const testObj = {
   key1: "hi",
   key2: {
-    key3: "Hello"
-  }
+    key3: "Hello",
+  },
 };
 
 const greeting = testObj?.key2?.key3 || testObj.key1;
