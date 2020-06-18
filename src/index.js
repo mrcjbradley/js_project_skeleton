@@ -1,5 +1,6 @@
 import "./styles/index.scss";
 import canvasExample from "./scripts/canvas";
+import Square from "./scripts/square";
 // const testObj = {
 //   key1: "hi",
 //   key2: {
@@ -24,17 +25,20 @@ window.addEventListener("DOMContentLoaded", main);
 function main() {
   const canvas = new canvasExample();
   canvas.createCanvas();
+  const squares = [new Square(canvas.ctx, canvas.coords, canvas.fillColor)];
 
   let animating = true;
 
   const animation = () => {
-    canvas.clearSquare();
-    if (animating) canvas.updateSquare();
-    canvas.drawSquare();
+    canvas.clearCanvas();
+    if (animating) squares.forEach((sq) => sq.updateSquare(canvas.fillColor));
+    squares.forEach((sq) => sq.drawSquare());
     window.requestAnimationFrame(animation);
-    if (canvas.coords[0] + canvas.coords[2] > canvas.canvas.width)
-      canvas.reverseAnimation();
-    if (canvas.coords[0] < 0) canvas.reverseAnimation();
+    squares.forEach((sq) => {
+      if (sq.coords[0] + sq.coords[2] > canvas.canvas.width)
+        sq.reverseAnimation();
+      if (sq.coords[0] < 0) sq.reverseAnimation();
+    });
   };
 
   window.requestAnimationFrame(animation);
@@ -42,7 +46,7 @@ function main() {
   window.addEventListener("keydown", (event) => {
     if (event.which === 32) {
       event.preventDefault();
-      canvas.reverseAnimation();
+      squares.forEach((sq) => sq.reverseAnimation());
       canvas.setColor(`#${Math.floor(Math.random() * 16777215).toString(16)}`);
     }
   });
@@ -50,6 +54,13 @@ function main() {
   window.addEventListener("mousedown", (event) => {
     event.preventDefault();
     console.log("click");
-    animating = !animating;
+    squares.push(
+      new Square(
+        canvas.ctx,
+        canvas.coords.map((co) => co + 25),
+        canvas.fillColor
+      )
+    );
+    // animating = !animating;
   });
 }
