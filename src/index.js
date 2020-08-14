@@ -65,7 +65,14 @@ function startCanvas() {
 
   function handleMouseDown(event) {
     event.preventDefault();
-    animating = !animating;
+    squares.push(
+      new Square(
+        canvas.ctx,
+        canvas.coords.map((co) => co + 25),
+        canvas.fillColor
+      )
+    );
+    // animating = !animating;
   }
 }
 
