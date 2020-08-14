@@ -1,5 +1,6 @@
 import "./styles/index.scss";
 import canvasExample from "./scripts/canvas";
+import Square from "./scripts/square";
 import { DOMExample } from "./scripts/DOMExample";
 const currentStateObj = {
   currentExample: null,
