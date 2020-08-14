@@ -27,7 +27,7 @@
     "fibers": "^4.0.1",
     "file-loader": "^5.0.2",
     "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "postcss-loader": "^3.0.0",
     "sass": "^1.23.0",
     "sass-loader": "^8.0.0",
@@ -35,7 +35,7 @@
     "url-loader": "^3.0.0",
     "webpack": "^4.41.1",
     "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.2",
+    "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^4.2.2"
   }
 }

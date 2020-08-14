@@ -1,39 +1,25 @@
 import "./styles/index.scss";
 import canvasExample from "./scripts/canvas";
-import Square from "./scripts/square";
-const testObj = {
-  key1: "hi",
-  key2: {
-    key3: "Hello",
-  },
+import { DOMExample } from "./scripts/DOMExample";
+const currentStateObj = {
+  currentExample: null,
+  currentEventListeners: [],
 };
 
-const greeting = testObj?.key2?.key3 || testObj.key1;
-function renderDOMManipulationExample() {
-  document.body.innerHTML = "";
-  document.body.classList.add("center");
-  const card = document.createElement("div");
-  card.classList.add("card", "center");
-  card.innerHTML = `<h2>${greeting} World!</h2>`;
-  document.body.append(card);
-  const imgCard = document.createElement("div");
-  imgCard.classList.add("card", "center", "image-card");
-  document.body.appendChild(imgCard);
+document.querySelector("#canvas-demo").addEventListener("click", startCanvas);
+document.querySelector("#DOM-demo").addEventListener("click", startDOM);
 
-  const DOMBtn = document.createElement("button");
-  DOMBtn.innerText = "Canvas Example";
-  document.body.insertBefore(DOMBtn, card);
-  DOMBtn.onclick = (e) => {
-    e.preventDefault();
-
-    renderCanvasExample();
-  };
+function startDOM() {
+  unregisterEventListeners();
+  clearDemo();
+  currentStateObj.currentExample = "DOMDEMO";
+  DOMExample();
 }
 
-window.addEventListener("DOMContentLoaded", renderCanvasExample);
-
-function renderCanvasExample() {
-  document.body.innerHTML = "";
+function startCanvas() {
+  clearDemo();
+  unregisterEventListeners();
+  currentStateObj.currentExample = "CANVASDEMO";
   const canvas = new canvasExample();
   canvas.createCanvas();
   const squares = [new Square(canvas.ctx, canvas.coords, canvas.fillColor)];
@@ -54,34 +40,56 @@ function renderCanvasExample() {
 
   window.requestAnimationFrame(animation);
 
-  window.addEventListener("keydown", registeredChangeColorKeydown);
-  function registeredChangeColorKeydown(event) {
+  window.addEventListener("keydown", handleKeyDown);
+  currentStateObj.currentEventListeners.push([
+    "window",
+    "keydown",
+    handleKeyDown,
+  ]);
+
+  window.addEventListener("mousedown", handleMouseDown);
+  currentStateObj.currentEventListeners.push([
+    "window",
+    "mousedown",
+    handleMouseDown,
+  ]);
+
+  function handleKeyDown(event) {
     if (event.which === 32) {
       event.preventDefault();
       squares.forEach((sq) => sq.reverseAnimation());
       canvas.setColor(`#${Math.floor(Math.random() * 16777215).toString(16)}`);
     }
-    if (event.which === 80) {
-      event.preventDefault();
-      animating = !animating;
+  }
+
+  function handleMouseDown(event) {
+    event.preventDefault();
+    animating = !animating;
+  }
+}
+
+function unregisterEventListeners() {
+  while (currentStateObj.currentEventListeners.length) {
+    let [
+      selector,
+      event,
+      handler,
+    ] = currentStateObj.currentEventListeners.pop();
+    if (selector === "window") {
+      window.removeEventListener(event, handler);
+      console.log(handler);
+    } else {
+      document.querySelector(selector).removeEventListener(event, handler);
     }
   }
-  window.addEventListener("mousedown", registeredNewSquareMouseDown);
+}
 
-  function registeredNewSquareMouseDown(event) {
-    event.preventDefault();
-    const { clientX, clientY } = event;
-    squares.push(
-      new Square(canvas.ctx, [clientX, clientY, 100, 150], canvas.fillColor)
+function clearDemo() {
+  if (currentStateObj.currentExample === "CANVASDEMO")
+    document.body.removeChild(document.querySelector("canvas"));
+  if (currentStateObj.currentExample === "DOMDEMO") {
+    [...document.querySelectorAll(".card")].forEach((elem) =>
+      document.body.removeChild(elem)
     );
   }
-  const DOMBtn = document.createElement("button");
-  DOMBtn.innerText = "DOM Example";
-  document.body.insertBefore(DOMBtn, canvas.canvas);
-  DOMBtn.onclick = (e) => {
-    e.preventDefault();
-    window.removeEventListener("mousedown", registeredNewSquareMouseDown);
-    window.removeEventListener("keydown", registeredChangeColorKeydown);
-    renderDOMManipulationExample();
-  };
 }
