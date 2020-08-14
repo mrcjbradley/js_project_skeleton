@@ -1,27 +1,25 @@
 import "./styles/index.scss";
 import canvasExample from "./scripts/canvas";
-// const testObj = {
-//   key1: "hi",
-//   key2: {
-//     key3: "Hello",
-//   },
-// };
+import { DOMExample } from "./scripts/DOMExample";
+const currentStateObj = {
+  currentExample: null,
+  currentEventListeners: [],
+};
 
-// const greeting = testObj?.key2?.key3 || testObj.key1;
-// window.addEventListener("DOMContentLoaded", () => {
-//   document.body.classList.add("center");
-//   const card = document.createElement("div");
-//   card.classList.add("card", "center");
-//   card.innerHTML = `<h2>${greeting} World!</h2>`;
-//   document.body.append(card);
-//   const imgCard = document.createElement("div");
-//   imgCard.classList.add("card", "center", "image-card");
-//   document.body.appendChild(imgCard);
-// });
+document.querySelector("#canvas-demo").addEventListener("click", startCanvas);
+document.querySelector("#DOM-demo").addEventListener("click", startDOM);
 
-window.addEventListener("DOMContentLoaded", main);
+function startDOM() {
+  unregisterEventListeners();
+  clearDemo();
+  currentStateObj.currentExample = "DOMDEMO";
+  DOMExample();
+}
 
-function main() {
+function startCanvas() {
+  clearDemo();
+  unregisterEventListeners();
+  currentStateObj.currentExample = "CANVASDEMO";
   const canvas = new canvasExample();
   canvas.createCanvas();
 
@@ -39,17 +37,56 @@ function main() {
 
   window.requestAnimationFrame(animation);
 
-  window.addEventListener("keydown", (event) => {
+  window.addEventListener("keydown", handleKeyDown);
+  currentStateObj.currentEventListeners.push([
+    "window",
+    "keydown",
+    handleKeyDown,
+  ]);
+
+  window.addEventListener("mousedown", handleMouseDown);
+  currentStateObj.currentEventListeners.push([
+    "window",
+    "mousedown",
+    handleMouseDown,
+  ]);
+
+  function handleKeyDown(event) {
     if (event.which === 32) {
       event.preventDefault();
       canvas.reverseAnimation();
       canvas.setColor(`#${Math.floor(Math.random() * 16777215).toString(16)}`);
     }
-  });
+  }
 
-  window.addEventListener("mousedown", (event) => {
+  function handleMouseDown(event) {
     event.preventDefault();
-    console.log("click");
     animating = !animating;
-  });
+  }
+}
+
+function unregisterEventListeners() {
+  while (currentStateObj.currentEventListeners.length) {
+    let [
+      selector,
+      event,
+      handler,
+    ] = currentStateObj.currentEventListeners.pop();
+    if (selector === "window") {
+      window.removeEventListener(event, handler);
+      console.log(handler);
+    } else {
+      document.querySelector(selector).removeEventListener(event, handler);
+    }
+  }
+}
+
+function clearDemo() {
+  if (currentStateObj.currentExample === "CANVASDEMO")
+    document.body.removeChild(document.querySelector("canvas"));
+  if (currentStateObj.currentExample === "DOMDEMO") {
+    [...document.querySelectorAll(".card")].forEach((elem) =>
+      document.body.removeChild(elem)
+    );
+  }
 }
