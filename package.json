@@ -17,7 +17,7 @@
     "start:debug": "DEBUG=* node app.js",
     "webpack:start": "webpack-dev-server --config webpack.dev.js",
     "webpack:watch": "webpack --watch --config webpack.dev.js",
-    "webpack:build": "webpack --config webpack.prod.js  --optimize-minimize"
+    "build": "webpack --config webpack.prod.js  --optimize-minimize"
   },
   "author": "mrcjbradley",
   "license": "ISC",
@@ -41,6 +41,7 @@
     "webpack": "^4.41.1",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "dotenv": "^8.2.0"
   }
 }
