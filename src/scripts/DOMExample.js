@@ -17,9 +17,13 @@ export const DOMExample = () => {
   imgCard.classList.add("card", "center", "image-card");
   document.body.appendChild(imgCard);
   const imgElement = document.createElement("img");
-  imgElement.src = "./dist/" + stitchAndYoda;
+  imgElement.src = buildAssetPath(stitchAndYoda);
   imgElement.classList.add("card", "center");
   imgElement.style.objectFit = "cover";
   imgElement.style.filter = "grayscale(80%)";
   document.body.appendChild(imgElement);
 };
+
+function buildAssetPath(imgSrc) {
+  return `./dist/${imgSrc}`;
+}
