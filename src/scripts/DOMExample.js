@@ -24,6 +24,8 @@ export const DOMExample = () => {
   document.body.appendChild(imgElement);
 };
 
+// to resolve path issues for images in JS
+
 function buildAssetPath(imgSrc) {
   return `./dist/${imgSrc}`;
 }
