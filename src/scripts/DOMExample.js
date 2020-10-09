@@ -1,3 +1,4 @@
+import stitchAndYoda from "../images/yoda-stitch.jpg";
 export const DOMExample = () => {
   const testObj = {
     key1: "hi",
@@ -15,4 +16,10 @@ export const DOMExample = () => {
   const imgCard = document.createElement("div");
   imgCard.classList.add("card", "center", "image-card");
   document.body.appendChild(imgCard);
+  const imgElement = document.createElement("img");
+  imgElement.src = "./dist/" + stitchAndYoda;
+  imgElement.classList.add("card", "center");
+  imgElement.style.objectFit = "cover";
+  imgElement.style.filter = "grayscale(80%)";
+  document.body.appendChild(imgElement);
 };

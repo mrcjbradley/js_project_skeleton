@@ -7,10 +7,10 @@ module.exports = {
   output: {
     path: path.join(__dirname, outputDir),
     filename: "[name].js",
-    publicPath: "/dist/"
+    publicPath: "/dist/",
   },
   resolve: {
-    extensions: [".js"] // if we were using React.js, we would include ".jsx"
+    extensions: [".js"], // if we were using React.js, we would include ".jsx"
   },
   module: {
     rules: [
@@ -21,9 +21,9 @@ module.exports = {
           options: {
             presets: ["@babel/preset-env"],
             plugins: ["@babel/plugin-proposal-optional-chaining"],
-            exclude: /node_modules/
-          } // if we were using React.js, we would include "react"
-        }
+            exclude: /node_modules/,
+          }, // if we were using React.js, we would include "react"
+        },
       },
       {
         test: /\.css$/,
@@ -34,12 +34,12 @@ module.exports = {
               // you can specify a publicPath here
               // by default it uses publicPath in webpackOptions.output
               publicPath: "../",
-              hmr: process.env.NODE_ENV === "development"
-            }
+              hmr: process.env.NODE_ENV === "development",
+            },
           },
           "css-loader",
-          "postcss-loader"
-        ]
+          "postcss-loader",
+        ],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
@@ -51,10 +51,10 @@ module.exports = {
               // by default it uses publicPath in webpackOptions.output
               name: "[name].[ext]",
               outputPath: "images/",
-              publicPath: "images/"
-            }
-          }
-        ]
+              publicPath: "images/",
+            },
+          },
+        ],
       },
       {
         test: /\.scss/,
@@ -65,15 +65,15 @@ module.exports = {
               // you can specify a publicPath here
               // by default it uses publicPath in webpackOptions.output
               publicPath: "../",
-              hmr: process.env.NODE_ENV === "development"
-            }
+              hmr: process.env.NODE_ENV === "development",
+            },
           },
           "css-loader",
           "sass-loader",
-          "postcss-loader"
-        ]
-      }
-    ]
+          "postcss-loader",
+        ],
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -81,8 +81,8 @@ module.exports = {
       // all options are optional
       filename: "[name].css",
       chunkFilename: "[id].css",
-      ignoreOrder: false // Enable to remove warnings about conflicting order
+      ignoreOrder: false, // Enable to remove warnings about conflicting order
     }),
-    require("autoprefixer")
-  ]
+    require("autoprefixer"),
+  ],
 };
