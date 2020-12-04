@@ -1,24 +1,50 @@
+## Node Version Manager (NVM)
+- To find out which version of node your machine is currently running, use the command `node -v` in your terminal
+- We want to build our projects in the latest stable build that is supported by all of our dependencies.
+- For easy node version management, we'll use the [Node Version Manager](https://github.com/nvm-sh/nvm)
+  
+### Installation and Config
+We can use homebrew to install the manager:
+1. update homebrew with `brew update`
+2. install the manager with `brew install nvm`
+3. make a directory for the manger in your root folder with `mkdir ~/.nvm`
+4. finally, in your `~/.zshrc` file for zsh users or in your `.bash_profile` for bash users, add the following:
+
+   ```
+   export NVM_DIR=~/.nvm
+   source $(brew --prefix nvm)/nvm.sh
+   ```
+5. Finally, we need to restart our terminal to load the new changes.
+
+### Versioning
+- Once nvm is installed and configured, we want to install the needed version of node with the command `nvm install 14.15.0`
+- In order to switch node versions, use the command `nvm use <desired node version>` (in our case, we want to run `nvm use 14.15.0`)
+
+## Project Set Up
+
 1. create your new project directory and `cd` into it 
 2. `git init`
-3. create a simple `.gitignore`
-        
-        # .gitignore
+3.  create a simple `.gitignore`
+    ```
+    # .gitignore
 
-        /node_modules/
-4. `npm init` and follow prompts
-5. install dev dependencies
-   
-        npm install @babel/core @babel/preset-env autoprefixer babel-loader css-loader fibers file-loader mini-css-extract-plugin node-sass postcss-loader sass sass-loader style-loader url-loader webpack webpack-cli webpack-dev-server webpack-merge --save-dev
-
-6. create basic `/src` subdirectory file structure
-
-        - src/
-            - index.js
-            styles/
-                - index.scss
-            scripts/
-
-7. In your root directory, create `webpack.common.js`
+    /node_modules/
+    ```
+    > **NOTE WE WILL NOT IGNORE OUR BUNDLE FILES IN ORDER TO HOST ON GITHUB PAGES**
+4.  `npm init` and follow prompts
+5.  install dev dependencies
+    ```
+    npm install  @babel/core @babel/preset-env autoprefixer babel-loader css-loader fibers file-loader mini-css-extract-plugin node-sass postcss-loader sass sass-loader style-loader url-loader webpack@4.44.2 webpack-cli@3.3.12 webpack-dev-server@3.11.0 webpack-merge@4.2.2 --save-dev
+    ```
+6.  create basic `/src` subdirectory and file structure
+    ```
+    - src/
+        - index.js
+        styles/
+            - index.scss
+        scripts/
+    ```
+7.  In your root directory, create `webpack.common.js`
 
     ```JavaScript
     // webpack.common.js
@@ -32,10 +58,10 @@
     output: {
         path: path.join(__dirname, outputDir),
         filename: "[name].js",
-        publicPath: "/dist/"
+        publicPath: "/dist/",
     },
     resolve: {
-        extensions: [".js"] // if we were using React.js, we would include ".jsx"
+        extensions: [".js"], // if we were using React.js, we would include ".jsx"
     },
     module: {
         rules: [
@@ -46,9 +72,9 @@
             options: {
                 presets: ["@babel/preset-env"],
                 plugins: ["@babel/plugin-proposal-optional-chaining"],
-                exclude: /node_modules/
-            } // if we were using React.js, we would include "react"
-            }
+                exclude: /node_modules/,
+            }, // if we were using React.js, we would include "react"
+            },
         },
         {
             test: /\.css$/,
@@ -59,12 +85,12 @@
                 // you can specify a publicPath here
                 // by default it uses publicPath in webpackOptions.output
                 publicPath: "../",
-                hmr: process.env.NODE_ENV === "development"
-                }
+                hmr: process.env.NODE_ENV === "development",
+                },
             },
             "css-loader",
-            "postcss-loader"
-            ]
+            "postcss-loader",
+            ],
         },
         {
             test: /\.(png|jpe?g|gif)$/i,
@@ -76,10 +102,10 @@
                 // by default it uses publicPath in webpackOptions.output
                 name: "[name].[ext]",
                 outputPath: "images/",
-                publicPath: "images/"
-                }
-            }
-            ]
+                publicPath: "images/",
+                },
+            },
+            ],
         },
         {
             test: /\.scss/,
@@ -90,15 +116,15 @@
                 // you can specify a publicPath here
                 // by default it uses publicPath in webpackOptions.output
                 publicPath: "../",
-                hmr: process.env.NODE_ENV === "development"
-                }
+                hmr: process.env.NODE_ENV === "development",
+                },
             },
             "css-loader",
             "sass-loader",
-            "postcss-loader"
-            ]
-        }
-        ]
+            "postcss-loader",
+            ],
+        },
+        ],
     },
     plugins: [
         new MiniCssExtractPlugin({
@@ -106,33 +132,32 @@
         // all options are optional
         filename: "[name].css",
         chunkFilename: "[id].css",
-        ignoreOrder: false // Enable to remove warnings about conflicting order
+        ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
-        require("autoprefixer")
-    ]
+        require("autoprefixer"),
+    ],
     };
-
     ```
 
-8. Create `webpack.dev.js`
+8.  Create `webpack.dev.js`
 
     ```JavaScript
-    // wepack.dev.js
+    // webpack.dev.js
     const merge = require("webpack-merge");
     const common = require("./webpack.common.js");
 
     module.exports = merge(common, {
-        mode: "development",
-        devtool: "inline-source-map",
-        devServer: {
-            contentBase: "./",
-            watchContentBase: true,
-            open: "Google Chrome"
-        }
+      mode: "development",
+      devtool: "inline-source-map",
+      devServer: {
+        contentBase: "./",
+        watchContentBase: true,
+        open: "Google Chrome", // use "google-chrome" for PC
+      },
     });
     ```
 
-9. Create `webpack.prod.js`
+9.  Create `webpack.prod.js`
 
     ```JavaScript
     // webpack.prod.js
@@ -174,7 +199,29 @@
     ```
 
 12. create `index.scss` in `/src/styles`
-
+    - this will be a place to import all of your custom style sheets
 13. create `index.js` in `/src` directory and import style `/src/styles/index.scss`
-
+    ```JS
+    // src/index.js
+    import "./styles/index.scss";
+    ```
 14. create `index.html` and import `dist/main.css` and `dist/main.js` appropriately
+
+    ``` html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="./dist/main.css" />
+        <title>Project Name</title>
+    </head>
+
+    <body>
+        <button id="canvas-demo">Canvas Demo</button>
+        <button id="DOM-demo">DOM Demo</button>
+        <script src="./dist/main.js"></script>
+    </body>
+    </html>
+    ```
