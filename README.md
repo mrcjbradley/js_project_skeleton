@@ -34,7 +34,7 @@ We can use homebrew to install the manager:
 4.  `npm init` and follow prompts
 5.  install dev dependencies
     ```
-    npm install  @babel/core @babel/preset-env autoprefixer babel-loader css-loader fibers file-loader mini-css-extract-plugin node-sass postcss-loader sass sass-loader style-loader url-loader webpack@4.44.2 webpack-cli@3.3.12 webpack-dev-server@3.11.0 webpack-merge@4.2.2 --save-dev
+    npm install  @babel/core @babel/preset-env autoprefixer babel-loader css-loader file-loader mini-css-extract-plugin node-sass postcss-loader sass sass-loader style-loader url-loader webpack@4.44.2 webpack-cli@3.3.12 webpack-dev-server@3.11.0 webpack-merge@4.2.2 --save-dev
     ```
 6.  create basic `/src` subdirectory and file structure
     ```
@@ -54,7 +54,7 @@ We can use homebrew to install the manager:
     const outputDir = "./dist";
 
     module.exports = {
-    entry: path.resolve(__dirname, "src", "index.js"), //
+    entry: path.resolve(__dirname, "src", "index.js"), 
     output: {
         path: path.join(__dirname, outputDir),
         filename: "[name].js",
@@ -85,7 +85,6 @@ We can use homebrew to install the manager:
                 // you can specify a publicPath here
                 // by default it uses publicPath in webpackOptions.output
                 publicPath: "../",
-                hmr: process.env.NODE_ENV === "development",
                 },
             },
             "css-loader",
@@ -116,7 +115,6 @@ We can use homebrew to install the manager:
                 // you can specify a publicPath here
                 // by default it uses publicPath in webpackOptions.output
                 publicPath: "../",
-                hmr: process.env.NODE_ENV === "development",
                 },
             },
             "css-loader",
@@ -152,7 +150,7 @@ We can use homebrew to install the manager:
       devServer: {
         contentBase: "./",
         watchContentBase: true,
-        open: "Google Chrome", // use "google-chrome" for PC
+        open: "Google Chrome", // use "chrome" for PC
       },
     });
     ```
@@ -185,6 +183,9 @@ We can use homebrew to install the manager:
 
     ```JavaScript
     // package.json
+
+    ...
+
     "browserslist": [
         "last 1 version",
         "> 1%",
@@ -196,6 +197,10 @@ We can use homebrew to install the manager:
         "webpack:watch": "webpack --watch --config webpack.dev.js",
         "webpack:build": "webpack --config webpack.prod.js  --optimize-minimize"
     },
+
+    ...
+
+
     ```
 
 12. create `index.scss` in `/src/styles`
@@ -219,8 +224,6 @@ We can use homebrew to install the manager:
     </head>
 
     <body>
-        <button id="canvas-demo">Canvas Demo</button>
-        <button id="DOM-demo">DOM Demo</button>
         <script src="./dist/main.js"></script>
     </body>
     </html>
