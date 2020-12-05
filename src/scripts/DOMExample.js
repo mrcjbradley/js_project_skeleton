@@ -1,4 +1,5 @@
 import stitchAndYoda from "../images/yoda-stitch.jpg";
+
 export const DOMExample = () => {
   const testObj = {
     key1: "hi",
@@ -22,6 +23,17 @@ export const DOMExample = () => {
   imgElement.style.objectFit = "cover";
   imgElement.style.filter = "grayscale(80%)";
   document.body.appendChild(imgElement);
+  const randomCard = document.createElement("div");
+  randomCard.classList.add("card", "center", "rando");
+  const winnerP = document.createElement("p");
+  const randomButton = document.createElement("btn");
+  randomButton.innerText = "Pick Me!";
+  randomCard.append(randomButton, winnerP);
+  document.body.append(randomCard);
+  randomButton.onclick = (e) => {
+    e.preventDefault();
+    winnerP.innerHTML = randomJobSeeker();
+  };
 };
 
 // to resolve path issues for images in JS
@@ -29,3 +41,20 @@ export const DOMExample = () => {
 function buildAssetPath(imgSrc) {
   return `./dist/${imgSrc}`;
 }
+
+function randomJobSeeker() {
+const jobSeekers = process.env.NODE_ENV === 'development' ? 
+  require('../../secret').JOBSEEKERS : 
+  [
+    "Arthur Dent",
+    "Ford Prefect",
+    "Zaphod Beeblebrox",
+    "Marvin the Paranoid Android",
+    "Trillian",
+    "Slartibartfast",
+  ];
+
+  const winner = jobSeekers[Math.floor(Math.random() * jobSeekers.length)];
+  return winner;
+}
+

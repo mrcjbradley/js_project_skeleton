@@ -10,9 +10,9 @@
     "not dead"
   ],
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js",
-    "webpack:watch": "webpack --watch --config webpack.dev.js",
-    "webpack:build": "webpack --config webpack.prod.js  --optimize-minimize"
+    "start": "webpack-dev-server --config webpack.dev.js && NODE_ENV=development",
+    "webpack:watch": "webpack --watch --config webpack.dev.js && NODE_ENV=development",
+    "webpack:build": "webpack --config webpack.prod.js  --optimize-minimize && NODE_ENV=production"
   },
   "author": "mrcjbradley",
   "license": "ISC",
@@ -24,7 +24,6 @@
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.6.0",
-    "fibers": "^4.0.3",
     "file-loader": "^5.1.0",
     "mini-css-extract-plugin": "^0.8.2",
     "node-sass": "^4.14.1",
