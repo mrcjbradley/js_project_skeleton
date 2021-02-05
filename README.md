@@ -8,7 +8,7 @@ We can use homebrew to install the manager:
 1. update homebrew with `brew update`
 2. install the manager with `brew install nvm`
 3. make a directory for the manger in your root folder with `mkdir ~/.nvm`
-4. finally, in your `~/.zshrc` file for zsh users or in your `.bash_profile` for bash users, add the following:
+4. in your `~/.zshrc` file for zsh users or in your `.bash_profile` for bash users, add the following:
 
    ```
    export NVM_DIR=~/.nvm
@@ -34,7 +34,7 @@ We can use homebrew to install the manager:
 4.  `npm init` and follow prompts
 5.  install dev dependencies
     ```
-    npm install  @babel/core @babel/preset-env autoprefixer babel-loader css-loader file-loader mini-css-extract-plugin node-sass postcss-loader sass sass-loader style-loader url-loader webpack@4.44.2 webpack-cli@3.3.12 webpack-dev-server@3.11.0 webpack-merge@4.2.2 --save-dev
+    npm install @babel/core@7.11.6 @babel/plugin-proposal-optional-chaining@7.11.0 @babel/preset-env@7.11.5 autoprefixer@9.8.6 babel-loader@8.1.0 css-loader@3.6.0 file-loader@5.1.0 mini-css-extract-plugin@0.8.2 node-sass@4.14.1 postcss-loader@3.0.0 sass@1.27.0 sass-loader@8.0.2 style-loader@1.3.0 url-loader@3.0.0 webpack@4.44.2 webpack-cli@3.3.12 webpack-dev-server@3.11.0 webpack-merge@4.2.2 --save-dev
     ```
 6.  create basic `/src` subdirectory and file structure
     ```
