@@ -10,9 +10,9 @@
     "not dead"
   ],
   "scripts": {
-    "start": "NODE_ENV=development  && webpack-dev-server --config webpack.dev.js ",
-    "webpack:watch": "NODE_ENV=development  && webpack --watch --config webpack.dev.js ",
-    "webpack:build": "NODE_ENV=production  && webpack --config webpack.prod.js  --optimize-minimize "
+    "serve": "NODE_ENV=development webpack-dev-server --config webpack.dev.js ",
+    "watch": "NODE_ENV=development webpack --watch --config webpack.dev.js ",
+    "build": "NODE_ENV=production webpack --config webpack.prod.js  --optimize-minimize "
   },
   "author": "mrcjbradley",
   "license": "ISC",
