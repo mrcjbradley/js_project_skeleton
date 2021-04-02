@@ -148,7 +148,7 @@ We can use homebrew to install the manager:
 
     ```JavaScript
     // webpack.dev.js
-    const merge = require("webpack-merge");
+    const { merge } = require("webpack-merge");
     const common = require("./webpack.common.js");
 
     module.exports = merge(common, {
@@ -166,7 +166,7 @@ We can use homebrew to install the manager:
 
     ```JavaScript
     // webpack.prod.js
-    const merge = require("webpack-merge");
+    const { merge } = require("webpack-merge");
     const common = require("./webpack.common.js");
 
     module.exports = merge(common, {
@@ -202,7 +202,7 @@ We can use homebrew to install the manager:
     "scripts": {
        "serve": "NODE_ENV=development webpack-dev-server --config webpack.dev.js ",
        "watch": "NODE_ENV=development webpack --watch --config webpack.dev.js ",
-       "build": "NODE_ENV=production webpack --config webpack.prod.js  --optimize-minimize "
+       "build": "NODE_ENV=production webpack --config webpack.prod.js"
      },
 
     ...
