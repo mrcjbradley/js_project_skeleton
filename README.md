@@ -34,7 +34,7 @@ We can use homebrew to install the manager:
 4.  `npm init` and follow prompts
 5.  install dev dependencies
     ```
-    npm install  @babel/core @babel/plugin-proposal-optional-chaining @babel/preset-env autoprefixer babel-loader css-loader fibers file-loader mini-css-extract-plugin postcss-loader sass sass-loader ssri style-loader url-loader webpack webpack-cli webpack-dev-server webpack-merge --save-dev
+    npm install  @babel/core @babel/plugin-proposal-optional-chaining @babel/preset-env autoprefixer babel-loader css-loader fibers file-loader mini-css-extract-plugin postcss-loader sass sass-loader style-loader url-loader webpack webpack-cli webpack-dev-server webpack-merge --save-dev
     ```
 6.  create basic `/src` subdirectory and file structure
     ```
