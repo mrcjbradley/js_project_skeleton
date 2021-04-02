@@ -56,18 +56,18 @@ module.exports = {
         ],
       },
       {
-        test: /\.scss/,
+        test: /\.s[ca]ss/i,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              // you can specify a publicPath here
-              // by default it uses publicPath in webpackOptions.output
-              publicPath: "../",
-            },
-          },
+            process.env.NODE_ENV === "development"
+            ? "style-loader"
+            : MiniCssExtractPlugin.loader,
           "css-loader",
-          "sass-loader",
+          {
+            loader: "sass-loader", 
+            options: {
+              implementation: require('sass')
+            }
+          },
           "postcss-loader",
         ],
       },
