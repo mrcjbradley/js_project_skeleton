@@ -34,7 +34,7 @@ We can use homebrew to install the manager:
 4.  `npm init` and follow prompts
 5.  install dev dependencies
     ```
-    npm install @babel/core@7.11.6 @babel/plugin-proposal-optional-chaining@7.11.0 @babel/preset-env@7.11.5 autoprefixer@9.8.6 babel-loader@8.1.0 css-loader@3.6.0 file-loader@5.1.0 mini-css-extract-plugin@0.8.2 node-sass@4.14.1 postcss-loader@3.0.0 sass@1.27.0 sass-loader@8.0.2 style-loader@1.3.0 url-loader@3.0.0 webpack@4.44.2 webpack-cli@3.3.12 webpack-dev-server@3.11.0 webpack-merge@4.2.2 --save-dev
+    npm install  @babel/core @babel/plugin-proposal-optional-chaining @babel/preset-env autoprefixer babel-loader css-loader fibers file-loader mini-css-extract-plugin postcss-loader sass sass-loader ssri style-loader url-loader webpack webpack-cli webpack-dev-server webpack-merge --save-dev
     ```
 6.  create basic `/src` subdirectory and file structure
     ```
@@ -54,87 +54,88 @@ We can use homebrew to install the manager:
     const outputDir = "./dist";
 
     module.exports = {
-    entry: path.resolve(__dirname, "src", "index.js"), 
-    output: {
+      entry: path.resolve(__dirname, "src", "index.js"), 
+      output: {
         path: path.join(__dirname, outputDir),
         filename: "[name].js",
         publicPath: "/dist/",
-    },
-    resolve: {
+      },
+      resolve: {
         extensions: [".js"], // if we were using React.js, we would include ".jsx"
-    },
-    module: {
+      },
+      module: {
         rules: [
-        {
+          {
             test: /\.js$/, // if we were using React.js, we would use \.jsx?$/
             use: {
-            loader: "babel-loader",
-            options: {
+              loader: "babel-loader",
+              options: {
                 presets: ["@babel/preset-env"],
                 plugins: ["@babel/plugin-proposal-optional-chaining"],
                 exclude: /node_modules/,
-            }, // if we were using React.js, we would include "react"
+              }, // if we were using React.js, we would include "react"
             },
-        },
-        {
+          },
+          {
             test: /\.css$/,
             use: [
-            {
+              {
                 loader: MiniCssExtractPlugin.loader,
                 options: {
-                // you can specify a publicPath here
-                // by default it uses publicPath in webpackOptions.output
-                publicPath: "../",
+                  // you can specify a publicPath here
+                  // by default it uses publicPath in webpackOptions.output
+                  publicPath: "../",
                 },
-            },
-            "css-loader",
-            "postcss-loader",
+              },
+              "css-loader",
+              "postcss-loader",
             ],
-        },
-        {
+          },
+          {
             test: /\.(png|jpe?g|gif)$/i,
             use: [
-            {
+              {
                 loader: "file-loader",
                 options: {
-                // you can specify a publicPath here
-                // by default it uses publicPath in webpackOptions.output
-                name: "[name].[ext]",
-                outputPath: "images/",
-                publicPath: "images/",
+                  // you can specify a publicPath here
+                  // by default it uses publicPath in webpackOptions.output
+                  name: "[name].[ext]",
+                  outputPath: "images/",
+                  publicPath: "images/",
                 },
-            },
+              },
             ],
-        },
-        {
-            test: /\.scss/,
+          },
+          {
+            test: /\.s[ca]ss/i,
             use: [
-            {
-                loader: MiniCssExtractPlugin.loader,
+                process.env.NODE_ENV === "development"
+                ? "style-loader"
+                : MiniCssExtractPlugin.loader,
+              "css-loader",
+              {
+                loader: "sass-loader", 
                 options: {
-                // you can specify a publicPath here
-                // by default it uses publicPath in webpackOptions.output
-                publicPath: "../",
-                },
-            },
-            "css-loader",
-            "sass-loader",
-            "postcss-loader",
+                  implementation: require('sass')
+                }
+              },
+              "postcss-loader",
             ],
-        },
+          },
         ],
-    },
-    plugins: [
+      },
+      plugins: [
         new MiniCssExtractPlugin({
-        // Options similar to the same options in webpackOptions.output
-        // all options are optional
-        filename: "[name].css",
-        chunkFilename: "[id].css",
-        ignoreOrder: false, // Enable to remove warnings about conflicting order
+          // Options similar to the same options in webpackOptions.output
+          // all options are optional
+          filename: "[name].css",
+          chunkFilename: "[id].css",
+          ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
         require("autoprefixer"),
-    ],
+      ],
     };
+
     ```
 
 8.  Create `webpack.dev.js`
@@ -150,7 +151,7 @@ We can use homebrew to install the manager:
       devServer: {
         contentBase: "./",
         watchContentBase: true,
-        open: "Google Chrome", // use "chrome" for PC
+        open: true, // use "chrome" for PC
       },
     });
     ```
@@ -187,16 +188,16 @@ We can use homebrew to install the manager:
     ...
 
     "browserslist": [
-        "last 1 version",
-        "> 1%",
-        "maintained node versions",
-        "not dead"
+    "last 1 version",
+    "> 1%",
+    "maintained node versions",
+    "not dead"
     ],
     "scripts": {
-        "start": "webpack-dev-server --config webpack.dev.js",
-        "webpack:watch": "webpack --watch --config webpack.dev.js",
-        "webpack:build": "webpack --config webpack.prod.js  --optimize-minimize"
-    },
+       "serve": "NODE_ENV=development webpack-dev-server --config webpack.dev.js ",
+       "watch": "NODE_ENV=development webpack --watch --config webpack.dev.js ",
+       "build": "NODE_ENV=production webpack --config webpack.prod.js  --optimize-minimize "
+     },
 
     ...
 
