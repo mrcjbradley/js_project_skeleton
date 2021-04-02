@@ -43,18 +43,17 @@ function buildAssetPath(imgSrc) {
   return `./dist/${imgSrc}`;
 }
 
-function randomJobSeeker() {
-const jobSeekers = process.env.NODE_ENV === 'development' ? 
-  require('../../secret').JOBSEEKERS : 
-  [
-    "Arthur Dent",
-    "Ford Prefect",
-    "Zaphod Beeblebrox",
-    "Marvin the Paranoid Android",
-    "Trillian",
-    "Slartibartfast",
-  ];
-
+function  randomJobSeeker() {
+  let jobSeekers = (process.env.NODE_ENV === 'development') ?
+    require('../../secret').JOBSEEKERS :
+    [
+      "Arthur Dent",
+      "Ford Prefect",
+      "Zaphod Beeblebrox",
+      "Marvin the Paranoid Android",
+      "Trillian",
+      "Slartibartfast",
+    ];
   const winner = jobSeekers[Math.floor(Math.random() * jobSeekers.length)];
   return winner;
 }
