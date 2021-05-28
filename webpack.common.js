@@ -67,7 +67,6 @@ module.exports = {
             },
           },
           "css-loader",
-          "resolve-url-loader",
           {
             loader: "sass-loader", 
             options: {

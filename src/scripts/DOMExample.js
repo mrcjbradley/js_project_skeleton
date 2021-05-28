@@ -45,7 +45,7 @@ function buildAssetPath(imgSrc) {
 
 function  randomJobSeeker() {
   let jobSeekers = (process.env.NODE_ENV === 'development') ?
-    require('../../secret').JOBSEEKERS :
+    require('../secret').JOBSEEKERS :
     [
       "Arthur Dent",
       "Ford Prefect",
